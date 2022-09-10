@@ -358,7 +358,7 @@ namespace Calculator
             this.historyButton.FlatAppearance.BorderSize = 0;
             this.historyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.historyButton.Font = new System.Drawing.Font("Segoe UI", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.historyButton.ForeColor = System.Drawing.Color.Gray;
+            this.historyButton.ForeColor = System.Drawing.Color.White;
             this.historyButton.Location = new System.Drawing.Point(0, 0);
             this.historyButton.Name = "historyButton";
             this.historyButton.Size = new System.Drawing.Size(42, 44);
@@ -369,8 +369,9 @@ namespace Calculator
             // 
             // textBox
             // 
-            this.textBox.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.textBox.BackColor = System.Drawing.SystemColors.WindowText;
             this.textBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.textBox.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.textBox.Font = new System.Drawing.Font("Segoe UI", 30F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.textBox.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.textBox.Location = new System.Drawing.Point(3, 69);

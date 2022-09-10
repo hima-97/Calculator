@@ -41,7 +41,7 @@ namespace Calculator
             InitializeComponent();
         }
 
-        // Function to display number clicked onto the textbox:
+        // Function for when a number or "." is clicked:
         public void numberClicked(object sender, EventArgs e)
         {
             // Limiting input number to 13 digits max:
@@ -70,6 +70,8 @@ namespace Calculator
 
                 // Displaying current number onto the textbox:
                 textBox.Text = currentNumber;
+
+                // Adding current number to current number to use in expression:
                 currentNumberInExpression = currentNumber;
             }
         }
@@ -77,16 +79,68 @@ namespace Calculator
         // Function to read user input (i.e. numbers) from textbox:
         public void textBox_KeyPress(object sender, KeyPressEventArgs e)
         {
-            // If it's not a number or ".", then do not allow user to type onto textbox:
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+            // This won't display any user input onto the textbox:
+            // (Note: rest of function decides how to deal with keys pressed and what to display)
+            if (!char.IsControl(e.KeyChar))
             {
                 e.Handled = true;
             }
 
-            // If there is already a ".", then do not allow user to type another "." onto textbox:
-            if ((e.KeyChar == '.') && ((sender as TextBox).Text.IndexOf('.') > -1))
+            // If it's a number or ".", then add it to the current number:
+            if (!char.IsControl(e.KeyChar) && (char.IsDigit(e.KeyChar) || (e.KeyChar == '.')))
             {
-                e.Handled = true;
+                // Limiting input number to 13 digits max:
+                if (currentNumber.Length < 13)
+                {
+                    // For when '.' key is pressed:
+                    if (e.KeyChar == '.')
+                    {
+                        // Boolean that returns true if current number has . and returns false otherwise:
+                        Boolean isThereDot = currentNumber.Contains('.');
+
+                        // Adding '.' to the current number only if it does not alreay have one:
+                        if (!isThereDot)
+                        {
+                            if (currentNumber == "")
+                                currentNumber = "0" + e.KeyChar;
+                            else
+                                currentNumber += e.KeyChar;
+                        }
+                    }
+                    else
+                    {
+                        // Adding clicked number to "currentNumber" string:
+                        currentNumber += e.KeyChar;
+                    }
+
+                    // Displaying current number onto the textbox:
+                    textBox.Text = currentNumber;
+
+                    // Adding current number to current number to use in expression:
+                    currentNumberInExpression = currentNumber;
+                }
+            }
+
+            // For when backspace (i.e. erase) key is pressed:
+            if (e.KeyChar == '\b')
+            {
+                // If current output is not empty, remove the last entry:
+                if (currentNumber.Length > 1)
+                {
+                    currentNumber = currentNumber.Remove(currentNumber.Length - 1, 1);
+                    currentNumberInExpression = currentNumber;
+                    textBox.Text = currentNumber;
+                }
+                // If current number has only one digit:
+                else if (currentNumber.Length == 1)
+                {
+                    currentNumber = "";
+                    currentNumberInExpression = "";
+
+                    textBox.Text = "0";
+                }
+                else
+                    e.Handled = true; // Backspace key is not applied
             }
         }
 
@@ -357,16 +411,13 @@ namespace Calculator
                 currentNumberInExpression = currentNumber;
                 textBox.Text = currentNumber;
             }
-            // If you are not in the middle of an expression:
-            else if (currentOperator == "")
+            // If current number has only one digit:
+            else if (currentNumber.Length == 1)
             {
                 currentNumber = "";
                 currentNumberInExpression = "";
 
                 textBox.Text = "0";
-
-                firstOperand = "";
-                firstOperandInExpression = "";
             }
         }
 

@@ -1,5 +1,8 @@
 C:\Users\himak\Desktop\Computer Science\Projects\Calculator\bin\Debug\net6.0-windows\Calculator.exe
+C:\Users\himak\Desktop\Computer Science\Projects\Calculator\bin\Debug\net6.0-windows\Calculator.deps.json
+C:\Users\himak\Desktop\Computer Science\Projects\Calculator\bin\Debug\net6.0-windows\Calculator.runtimeconfig.json
 C:\Users\himak\Desktop\Computer Science\Projects\Calculator\bin\Debug\net6.0-windows\Calculator.dll
+C:\Users\himak\Desktop\Computer Science\Projects\Calculator\bin\Debug\net6.0-windows\Calculator.pdb
 C:\Users\himak\Desktop\Computer Science\Projects\Calculator\obj\Debug\net6.0-windows\Calculator.csproj.AssemblyReference.cache
 C:\Users\himak\Desktop\Computer Science\Projects\Calculator\obj\Debug\net6.0-windows\Calculator.Calculator.resources
 C:\Users\himak\Desktop\Computer Science\Projects\Calculator\obj\Debug\net6.0-windows\Calculator.Properties.Resources.resources
@@ -11,8 +14,5 @@ C:\Users\himak\Desktop\Computer Science\Projects\Calculator\obj\Debug\net6.0-win
 C:\Users\himak\Desktop\Computer Science\Projects\Calculator\obj\Debug\net6.0-windows\Calculator.dll
 C:\Users\himak\Desktop\Computer Science\Projects\Calculator\obj\Debug\net6.0-windows\refint\Calculator.dll
 C:\Users\himak\Desktop\Computer Science\Projects\Calculator\obj\Debug\net6.0-windows\Calculator.pdb
-C:\Users\himak\Desktop\Computer Science\Projects\Calculator\bin\Debug\net6.0-windows\Calculator.deps.json
-C:\Users\himak\Desktop\Computer Science\Projects\Calculator\bin\Debug\net6.0-windows\Calculator.runtimeconfig.json
-C:\Users\himak\Desktop\Computer Science\Projects\Calculator\bin\Debug\net6.0-windows\Calculator.pdb
 C:\Users\himak\Desktop\Computer Science\Projects\Calculator\obj\Debug\net6.0-windows\Calculator.genruntimeconfig.cache
 C:\Users\himak\Desktop\Computer Science\Projects\Calculator\obj\Debug\net6.0-windows\ref\Calculator.dll
