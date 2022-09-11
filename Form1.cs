@@ -76,74 +76,6 @@ namespace Calculator
             }
         }
 
-        // Function to read user input (i.e. numbers) from textbox:
-        public void textBox_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // This won't display any user input onto the textbox:
-            // (Note: rest of function decides how to deal with keys pressed and what to display)
-            if (!char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-
-            // If it's a number or ".", then add it to the current number:
-            if (!char.IsControl(e.KeyChar) && (char.IsDigit(e.KeyChar) || (e.KeyChar == '.')))
-            {
-                // Limiting input number to 13 digits max:
-                if (currentNumber.Length < 13)
-                {
-                    // For when '.' key is pressed:
-                    if (e.KeyChar == '.')
-                    {
-                        // Boolean that returns true if current number has . and returns false otherwise:
-                        Boolean isThereDot = currentNumber.Contains('.');
-
-                        // Adding '.' to the current number only if it does not alreay have one:
-                        if (!isThereDot)
-                        {
-                            if (currentNumber == "")
-                                currentNumber = "0" + e.KeyChar;
-                            else
-                                currentNumber += e.KeyChar;
-                        }
-                    }
-                    else
-                    {
-                        // Adding clicked number to "currentNumber" string:
-                        currentNumber += e.KeyChar;
-                    }
-
-                    // Displaying current number onto the textbox:
-                    textBox.Text = currentNumber;
-
-                    // Adding current number to current number to use in expression:
-                    currentNumberInExpression = currentNumber;
-                }
-            }
-
-            // For when backspace (i.e. erase) key is pressed:
-            if (e.KeyChar == '\b')
-            {
-                // If current output is not empty, remove the last entry:
-                if (currentNumber.Length > 1)
-                {
-                    currentNumber = currentNumber.Remove(currentNumber.Length - 1, 1);
-                    currentNumberInExpression = currentNumber;
-                    textBox.Text = currentNumber;
-                }
-                // If current number has only one digit:
-                else if (currentNumber.Length == 1)
-                {
-                    currentNumber = "";
-                    currentNumberInExpression = "";
-
-                    textBox.Text = "0";
-                }
-                else
-                    e.Handled = true; // Backspace key is not applied
-            }
-        }
-
         // Function to clear all inputs and reset everything, except history:
         public void clearEverything()
         {
@@ -232,7 +164,7 @@ namespace Calculator
                     myResult = scientificNotation(myResult);
                 }
             }
-            else if (currentOperator == "×")
+            else if (currentOperator == "×" || currentOperator == "*")
             {
                 myResult = Convert.ToString(Convert.ToDouble(firstOperand) * Convert.ToDouble(secondOperand));
 
@@ -242,7 +174,7 @@ namespace Calculator
                     myResult = scientificNotation(myResult);
                 }
             }
-            else if (currentOperator == "÷")
+            else if (currentOperator == "÷" || currentOperator == "/")
             {
                 myResult = Convert.ToString(Convert.ToDouble(firstOperand) / Convert.ToDouble(secondOperand));
 
@@ -301,7 +233,7 @@ namespace Calculator
             myResult = "";
         }
 
-        // Function to use when +, -, ×, or ÷ buttons are clicked:
+        // Function to use when +, -, ×, ÷, or % buttons are clicked:
         public void operatorClicked(object sender, EventArgs e)
         {
             // If current number is NaN, then clear all inputs and reset everything, except history:
@@ -505,7 +437,7 @@ namespace Calculator
         // Function for history button:
         public void historyClicked(object sender, EventArgs e)
         {
-            // Displaying each expression stored in the history:
+            // Displaying each expression stored in the history onto the history textbox:
             for (int i = 0; i < history.Count; i++)
             {
                 historyTextBox.Text += history[i].ToString() + System.Environment.NewLine + System.Environment.NewLine;
@@ -523,6 +455,151 @@ namespace Calculator
                 this.historyPanel.Visible = false;
                 this.historyTextBox.Visible = false;
                 historyTextBox.Text = "";
+            }
+        }
+
+        // Function to read user input (i.e. numbers) from textbox:
+        public void textBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // This won't display any user input onto the textbox:
+            // (Note: rest of function decides how to deal with keys pressed and what to display)
+            if (!char.IsControl(e.KeyChar))
+            {
+                e.Handled = true;
+            }
+
+            // If it's a number or ".", then add it to the current number:
+            if (!char.IsControl(e.KeyChar) && (char.IsDigit(e.KeyChar) || (e.KeyChar == '.')))
+            {
+                // Limiting input number to 13 digits max:
+                if (currentNumber.Length < 13)
+                {
+                    // For when '.' key is pressed:
+                    if (e.KeyChar == '.')
+                    {
+                        // Boolean that returns true if current number has . and returns false otherwise:
+                        Boolean isThereDot = currentNumber.Contains('.');
+
+                        // Adding '.' to the current number only if it does not alreay have one:
+                        if (!isThereDot)
+                        {
+                            if (currentNumber == "")
+                                currentNumber = "0" + e.KeyChar;
+                            else
+                                currentNumber += e.KeyChar;
+                        }
+                    }
+                    else
+                    {
+                        // Adding clicked number to "currentNumber" string:
+                        currentNumber += e.KeyChar;
+                    }
+
+                    // Displaying current number onto the textbox:
+                    textBox.Text = currentNumber;
+
+                    // Adding current number to current number to use in expression:
+                    currentNumberInExpression = currentNumber;
+                }
+            }
+
+            // For when backspace (i.e. erase) key is pressed:
+            if (e.KeyChar == '\b')
+            {
+                // If current output is not empty, remove the last entry:
+                if (currentNumber.Length > 1)
+                {
+                    currentNumber = currentNumber.Remove(currentNumber.Length - 1, 1);
+                    currentNumberInExpression = currentNumber;
+                    textBox.Text = currentNumber;
+                }
+                // If current number has only one digit:
+                else if (currentNumber.Length == 1)
+                {
+                    currentNumber = "";
+                    currentNumberInExpression = "";
+
+                    textBox.Text = "0";
+                }
+                else
+                    e.Handled = true; // Backspace key is not applied
+            }
+
+            // For when +, -, ×, ÷, or % keys are pressed:
+            if (e.KeyChar == '+' || e.KeyChar == '-' || e.KeyChar == '*' || e.KeyChar == '/' || e.KeyChar == '%')
+            {
+                // If current number is NaN, then clear all inputs and reset everything, except history:
+                if (currentNumber == "NaN")
+                {
+                    clearEverything();
+                }
+                else
+                {
+                    // Assign current number to "secondOperand" and evaluate expression if "firstOperand" is not empty:
+                    if (firstOperand != "" && currentOperator != "" && secondOperand == "" && currentNumber != "")
+                    {
+                        secondOperand = currentNumber;
+                        secondOperandInExpression = currentNumberInExpression;
+                        evaluateExpression();
+                    }
+                    // This is the case when user presses an operator when "currentOperator" is not empty, but "firstOperand" is empty:
+                    if (firstOperand == "" && currentOperator != "" && currentNumber != "")
+                    {
+                        firstOperand = currentNumber;
+                        firstOperandInExpression = currentNumberInExpression;
+                        currentNumber = "";
+                        currentNumberInExpression = "";
+                    }
+                    // This is the case when user presses an operator when "currentOperator" and "firstOperand" are empty:
+                    // (Note: This also applies for when user presses an operator after expression is evaluated with "=" button)
+                    else if (firstOperand == "" && currentOperator == "")
+                    {
+                        // If current number is empty, then assign "0" to it:
+                        // (i.e. this is the case when user presses operator before a number)
+                        if (currentNumber == "")
+                        {
+                            currentNumber = "0";
+                            currentNumberInExpression = "0";
+                        }
+
+                        firstOperand = currentNumber;
+                        firstOperandInExpression = currentNumberInExpression;
+
+                        // Resetting current number for second operand:
+                        currentNumber = "";
+                        currentNumberInExpression = "";
+                    }
+
+                    // Assign pressed operator in "currentOperator" string:
+                    currentOperator = e.KeyChar.ToString();
+                }
+            }
+
+            // For when "=" or "enter" key is pressed:
+            if (e.KeyChar == '=' || e.KeyChar == '\r')
+            {
+                // If current number is NaN, then clear all inputs and reset everything, except history:
+                if (currentNumber == "NaN")
+                {
+                    clearEverything();
+                }
+                else
+                {
+                    if (firstOperand != "" && currentOperator != "" && currentNumber != "" && secondOperand == "")
+                    {
+                        secondOperand = currentNumber;
+                        secondOperandInExpression = currentNumberInExpression;
+                        evaluateExpression();
+                    }
+                    // This is the case when user presses "=" with only the current number in memory:
+                    else if (currentNumber != "")
+                    {
+                        textBox.Text = currentNumber;
+                        currentExpression = currentNumberInExpression + " = " + currentNumber;
+                        currentNumberInExpression = currentNumber;
+                        history.Add(currentExpression);
+                    }
+                }
             }
         }
     }

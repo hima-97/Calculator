@@ -385,25 +385,28 @@ namespace Calculator
             // 
             // historyPanel
             // 
+            this.historyPanel.AutoScroll = true;
             this.historyPanel.Controls.Add(this.historyTextBox);
-            this.historyPanel.Location = new System.Drawing.Point(1, 246);
+            this.historyPanel.Location = new System.Drawing.Point(1, 46);
             this.historyPanel.Name = "historyPanel";
-            this.historyPanel.Size = new System.Drawing.Size(320, 214);
+            this.historyPanel.Size = new System.Drawing.Size(320, 414);
             this.historyPanel.TabIndex = 25;
             this.historyPanel.Visible = false;
             // 
             // historyTextBox
             // 
-            this.historyTextBox.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.historyTextBox.BackColor = System.Drawing.SystemColors.ControlText;
             this.historyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.historyTextBox.Enabled = false;
             this.historyTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.historyTextBox.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.historyTextBox.Location = new System.Drawing.Point(0, 169);
+            this.historyTextBox.Location = new System.Drawing.Point(0, 8);
             this.historyTextBox.Multiline = true;
             this.historyTextBox.Name = "historyTextBox";
-            this.historyTextBox.Size = new System.Drawing.Size(320, 234);
+            this.historyTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.historyTextBox.Size = new System.Drawing.Size(320, 406);
             this.historyTextBox.TabIndex = 0;
+            this.historyTextBox.WordWrap = true;
             this.historyTextBox.Visible = false;
             // 
             // Calculator
