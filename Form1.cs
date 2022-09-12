@@ -26,6 +26,9 @@ namespace Calculator
         // Variable to track current operator of expression to evaluate:
         public string currentOperator = "";
 
+        // Boolean to track if "=" has been clicked:
+        public Boolean equalBeenClicked = false;
+
         // Variable to track the result of expression evaluated:
         public string myResult = "";
 
@@ -47,6 +50,14 @@ namespace Calculator
             // Limiting input number to 13 digits max:
             if (currentNumber.Length < 13)
             {
+                // If "=" has been clicked, then next time user types a number it will be a brand new number:
+                if (equalBeenClicked == true)
+                {
+                    currentNumber = "";
+                    currentNumberInExpression = "";
+                    equalBeenClicked = false;
+                }
+
                 // For when "." button is clicked:
                 if ((sender as Button).Text == ".")
                 {
@@ -298,13 +309,12 @@ namespace Calculator
                     secondOperand = currentNumber;
                     secondOperandInExpression = currentNumberInExpression;
                     evaluateExpression();
+                    equalBeenClicked = true;
                 }
                 // This is the case when user clicks "=" with only the current number in memory:
                 else if (currentNumber != "")
                 {
-                    textBox.Text = currentNumber;
-                    currentExpression = currentNumberInExpression + " = " + currentNumber;
-                    currentNumberInExpression = currentNumber;
+                    currentExpression = currentNumberInExpression + " = " + currentNumberInExpression;
                     history.Add(currentExpression);
                 }
             }
@@ -591,12 +601,10 @@ namespace Calculator
                         secondOperandInExpression = currentNumberInExpression;
                         evaluateExpression();
                     }
-                    // This is the case when user presses "=" with only the current number in memory:
+                    // This is the case when user clicks "=" with only the current number in memory:
                     else if (currentNumber != "")
                     {
-                        textBox.Text = currentNumber;
-                        currentExpression = currentNumberInExpression + " = " + currentNumber;
-                        currentNumberInExpression = currentNumber;
+                        currentExpression = currentNumberInExpression + " = " + currentNumberInExpression;
                         history.Add(currentExpression);
                     }
                 }
