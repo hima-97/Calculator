@@ -410,7 +410,7 @@ namespace Calculator
                 // Formatting current number to use in expression:
                 currentNumberInExpression = "(" + currentNumberInExpression + ")^2";
 
-                // Performing square root of current number:
+                // Performing square of current number:
                 currentNumber = Convert.ToString(Math.Pow(Convert.ToDouble(currentNumber), 2));
 
                 // Re-formatting current number to scientific notation (i.e. e+ or e-) if it is too large:
@@ -431,7 +431,7 @@ namespace Calculator
                 // Formatting current number to use in expression:
                 currentNumberInExpression = "1/(" + currentNumberInExpression + ")";
 
-                // Performing square root of current number:
+                // Performing inverse of current number:
                 currentNumber = Convert.ToString(1 / (Convert.ToDouble(currentNumber)));
 
                 // Re-formatting current number to scientific notation (i.e. e+ or e-) if it is too large:
