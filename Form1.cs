@@ -1,3 +1,4 @@
+using System;
 using System.Data;
 using System.Globalization;
 
@@ -92,6 +93,9 @@ namespace Calculator
         {
             // Resetting text box:
             textBox.Text = "0";
+
+            // Resetting "currentExpressionTextBox":
+            currentExpressionTextBox.Text = "";
 
             // Resetting operator:
             currentOperator = "";
@@ -212,6 +216,9 @@ namespace Calculator
             // Adding current operands, operator, and result to current expression:
             currentExpression = firstOperandInExpression + " " + currentOperator + " " + secondOperandInExpression + " = " + myResult;
 
+            // Displaying current expression without the result onto the "currentExpressionTextBox":
+            this.currentExpressionTextBox.Text = firstOperandInExpression + " " + currentOperator + " " + secondOperandInExpression + " =";
+
             // Adding current expression to history list:
             history.Add(currentExpression);
 
@@ -247,8 +254,8 @@ namespace Calculator
         // Function to use when +, -, ×, ÷, or % buttons are clicked:
         public void operatorClicked(object sender, EventArgs e)
         {
-            // If current number is NaN, then clear all inputs and reset everything, except history:
-            if (currentNumber == "NaN")
+            // If current number is NaN or infinity then clear all inputs and reset everything, except history:
+            if (currentNumber == "NaN" || (double.TryParse(currentNumber, out double myDouble) && Double.IsInfinity(myDouble)))
             {
                 clearEverything();
             }
@@ -262,6 +269,7 @@ namespace Calculator
                     evaluateExpression();
                 }
                 // This is the case when user clicks an operator when "currentOperator" is not empty, but "firstOperand" is empty:
+                // (Example: click 5, then +, then 2, then x, then 3, then -, etc.)
                 if (firstOperand == "" && currentOperator != "" && currentNumber != "")
                 {
                     firstOperand = currentNumber;
@@ -291,14 +299,17 @@ namespace Calculator
 
                 // Assign clicked operator in "currentOperator" string:
                 currentOperator = (sender as Button).Text;
+
+                // Displaying current first operand and operator:
+                currentExpressionTextBox.Text = firstOperandInExpression + " " + (sender as Button).Text;
             }
         }
 
         // Function for equals button:
         public void equalsClicked(object sender, EventArgs e)
         {
-            // If current number is NaN, then clear all inputs and reset everything, except history:
-            if (currentNumber == "NaN")
+            // If current number is NaN or infinity then clear all inputs and reset everything, except history:
+            if (currentNumber == "NaN" || (double.TryParse(currentNumber, out double myDouble) && Double.IsInfinity(myDouble)))
             {
                 clearEverything();
             }
@@ -315,6 +326,7 @@ namespace Calculator
                 else if (currentNumber != "")
                 {
                     currentExpression = currentNumberInExpression + " = " + currentNumberInExpression;
+                    currentExpressionTextBox.Text = currentNumberInExpression + " =";
                     history.Add(currentExpression);
                 }
             }
@@ -363,13 +375,22 @@ namespace Calculator
             }
         }
 
-        // Function for +/- button:
+        // Function for +/- button (i.e. negate function):
         public void plusMinusClicked(object sender, EventArgs e)
         {
             if (currentNumber != "")
             {
                 // Formatting current number to use in expression:
                 currentNumberInExpression = "negate(" + currentNumber + ")";
+
+                if (firstOperandInExpression != "" && currentOperator != "")
+                {
+                    // Displaying first operand and current number in expression:
+                    currentExpressionTextBox.Text = firstOperandInExpression + " " + currentOperator + " " + currentNumberInExpression;
+                }
+                else
+                    // Displaying current number in expression:
+                    currentExpressionTextBox.Text = currentNumberInExpression;
 
                 double oppositeNumber = Convert.ToDouble(currentNumber);
 
@@ -388,6 +409,15 @@ namespace Calculator
             {
                 // Formatting current number to use in expression:
                 currentNumberInExpression = "sqrt(" + currentNumberInExpression + ")";
+
+                if (firstOperandInExpression != "" && currentOperator != "")
+                {
+                    // Displaying first operand and current number in expression:
+                    currentExpressionTextBox.Text = firstOperandInExpression + " " + currentOperator + " " + currentNumberInExpression;
+                }
+                else
+                    // Displaying current number in expression:
+                    currentExpressionTextBox.Text = currentNumberInExpression;
 
                 // Performing square root of current number:
                 currentNumber = Convert.ToString(Math.Sqrt(Convert.ToDouble(currentNumber)));
@@ -410,6 +440,15 @@ namespace Calculator
                 // Formatting current number to use in expression:
                 currentNumberInExpression = "(" + currentNumberInExpression + ")^2";
 
+                if (firstOperandInExpression != "" && currentOperator != "")
+                {
+                    // Displaying first operand and current number in expression:
+                    currentExpressionTextBox.Text = firstOperandInExpression + " " + currentOperator + " " + currentNumberInExpression;
+                }
+                else
+                    // Displaying current number in expression:
+                    currentExpressionTextBox.Text = currentNumberInExpression;
+
                 // Performing square of current number:
                 currentNumber = Convert.ToString(Math.Pow(Convert.ToDouble(currentNumber), 2));
 
@@ -430,6 +469,15 @@ namespace Calculator
             {
                 // Formatting current number to use in expression:
                 currentNumberInExpression = "1/(" + currentNumberInExpression + ")";
+
+                if (firstOperandInExpression != "" && currentOperator != "")
+                {
+                    // Displaying first operand and current number in expression:
+                    currentExpressionTextBox.Text = firstOperandInExpression + " " + currentOperator + " " + currentNumberInExpression;
+                }
+                else
+                    // Displaying current number in expression:
+                    currentExpressionTextBox.Text = currentNumberInExpression;
 
                 // Performing inverse of current number:
                 currentNumber = Convert.ToString(1 / (Convert.ToDouble(currentNumber)));
@@ -458,12 +506,14 @@ namespace Calculator
             {
                 this.historyPanel.Visible = true;
                 this.historyTextBox.Visible = true;
+                this.currentExpressionTextBox.Visible = false;
             }
             // Hiding history textbox:
             else
             {
                 this.historyPanel.Visible = false;
                 this.historyTextBox.Visible = false;
+                this.currentExpressionTextBox.Visible = true;
                 historyTextBox.Text = "";
             }
         }
@@ -538,8 +588,8 @@ namespace Calculator
             // For when +, -, ×, ÷, or % keys are pressed:
             if (e.KeyChar == '+' || e.KeyChar == '-' || e.KeyChar == '*' || e.KeyChar == '/' || e.KeyChar == '%')
             {
-                // If current number is NaN, then clear all inputs and reset everything, except history:
-                if (currentNumber == "NaN")
+                // If current number is NaN or infinity then clear all inputs and reset everything, except history:
+                if (currentNumber == "NaN" || (double.TryParse(currentNumber, out double myDouble) && Double.IsInfinity(myDouble)))
                 {
                     clearEverything();
                 }
@@ -552,7 +602,8 @@ namespace Calculator
                         secondOperandInExpression = currentNumberInExpression;
                         evaluateExpression();
                     }
-                    // This is the case when user presses an operator when "currentOperator" is not empty, but "firstOperand" is empty:
+                    // This is the case when user clicks an operator when "currentOperator" is not empty, but "firstOperand" is empty:
+                    // (Example: click 5, then +, then 2, then x, then 3, then -, etc.)
                     if (firstOperand == "" && currentOperator != "" && currentNumber != "")
                     {
                         firstOperand = currentNumber;
@@ -582,14 +633,17 @@ namespace Calculator
 
                     // Assign pressed operator in "currentOperator" string:
                     currentOperator = e.KeyChar.ToString();
+
+                    // Displaying current first operand and operator:
+                    currentExpressionTextBox.Text = firstOperandInExpression + " " + e.KeyChar.ToString();
                 }
             }
 
             // For when "=" or "enter" key is pressed:
             if (e.KeyChar == '=' || e.KeyChar == '\r')
             {
-                // If current number is NaN, then clear all inputs and reset everything, except history:
-                if (currentNumber == "NaN")
+                // If current number is NaN or infinity then clear all inputs and reset everything, except history:
+                if (currentNumber == "NaN" || (double.TryParse(currentNumber, out double myDouble) && Double.IsInfinity(myDouble)))
                 {
                     clearEverything();
                 }
@@ -600,11 +654,13 @@ namespace Calculator
                         secondOperand = currentNumber;
                         secondOperandInExpression = currentNumberInExpression;
                         evaluateExpression();
+                        equalBeenClicked = true;
                     }
                     // This is the case when user clicks "=" with only the current number in memory:
                     else if (currentNumber != "")
                     {
                         currentExpression = currentNumberInExpression + " = " + currentNumberInExpression;
+                        currentExpressionTextBox.Text = currentNumberInExpression + " =";
                         history.Add(currentExpression);
                     }
                 }
