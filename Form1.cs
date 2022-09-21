@@ -62,7 +62,7 @@ namespace Calculator
                 // For when "." button is clicked:
                 if ((sender as Button).Text == ".")
                 {
-                    // Boolean that returns true if current number has . and returns false otherwise:
+                    // Boolean that returns true if current number has "." and returns false otherwise:
                     Boolean isThereDot = currentNumber.Contains('.');
 
                     // Adding "." to the current number only if it does not alreay have one:
@@ -91,37 +91,16 @@ namespace Calculator
         // Function to clear all inputs and reset everything, except history:
         public void clearEverything()
         {
-            // Resetting text box:
             textBox.Text = "0";
-
-            // Resetting "currentExpressionTextBox":
             currentExpressionTextBox.Text = "";
-
-            // Resetting operator:
             currentOperator = "";
-
-            // Resetting current expression:
             currentExpression = "";
-
-            // Resetting current number:
             currentNumber = "";
-
-            // Resetting first operand:
             firstOperand = "";
-
-            // Resetting second operand:
             secondOperand = "";
-
-            // Resetting current number to use in expression:
             currentNumberInExpression = "";
-
-            // Resetting first operand to use in expression:
             firstOperandInExpression = "";
-
-            // Resetting second operand to use in expression:
             secondOperandInExpression = "";
-
-            // Resetting result:
             myResult = "";
         }
 
@@ -130,22 +109,23 @@ namespace Calculator
         {
             double currentNumber = Convert.ToDouble(myCurrentNumber);
             string currentNumberString = currentNumber.ToString("e", CultureInfo.CreateSpecificCulture("en-US"));
+
             // Formatting current number from 3.333333e+000 to just 3.333333 for example:
             currentNumber = double.Parse(currentNumberString, CultureInfo.InvariantCulture) * 1.0;
             myCurrentNumber = Convert.ToString(currentNumber);
             return myCurrentNumber;
         }
 
-        // Function to perform calculation:
+        // Function to perform calculations:
         public void evaluateExpression()
         {
-            // Re-formatting first operand if it contains scientific notation (i.e. e+ or e-)
+            // Formatting first operand if it contains scientific notation (i.e. e+ or e-)
             if (firstOperand.Contains("e") || firstOperand.Contains("E"))
             {
                 double myFirstOperand = double.Parse(firstOperand, CultureInfo.InvariantCulture);
                 firstOperand = Convert.ToString(myFirstOperand);
             }
-            // Re-formatting second operand if it contains scientific notation (i.e. e+ or e-)
+            // Formatting second operand if it contains scientific notation (i.e. e+ or e-)
             if (secondOperand.Contains("e") || secondOperand.Contains("E"))
             {
                 double mySecondOperand = double.Parse(secondOperand, CultureInfo.InvariantCulture);
@@ -153,61 +133,30 @@ namespace Calculator
             }
 
             // Computing current expression:
-            if (currentOperator == "+")
+            if (currentOperator == "+" || currentOperator == "-")
             {
-                // Setting up current expression in order to perform calculations
+                // Setting up current expression in order to perform calculations:
                 currentExpression = firstOperand + " " + currentOperator + " " + secondOperand;
 
                 myResult = new DataTable().Compute(currentExpression, null).ToString();
-
-                // Re-formatting result to scientific notation (i.e. e+ or e-) if it is too large:
-                if (myResult.Length > 13)
-                {
-                    myResult = scientificNotation(myResult);
-                }
-            }
-            else if (currentOperator == "-")
-            {
-                // Setting up current expression in order to perform calculations
-                currentExpression = firstOperand + " " + currentOperator + " " + secondOperand;
-
-                myResult = new DataTable().Compute(currentExpression, null).ToString();
-
-                // Re-formatting result to scientific notation (i.e. e+ or e-) if it is too large:
-                if (myResult.Length > 13)
-                {
-                    myResult = scientificNotation(myResult);
-                }
             }
             else if (currentOperator == "×" || currentOperator == "*")
             {
                 myResult = Convert.ToString(Convert.ToDouble(firstOperand) * Convert.ToDouble(secondOperand));
-
-                // Re-formatting result to scientific notation (i.e. e+ or e-) if it is too large:
-                if (myResult.Length > 13)
-                {
-                    myResult = scientificNotation(myResult);
-                }
             }
             else if (currentOperator == "÷" || currentOperator == "/")
             {
                 myResult = Convert.ToString(Convert.ToDouble(firstOperand) / Convert.ToDouble(secondOperand));
-
-                // Re-formatting result to scientific notation (i.e. e+ or e-) if it is too large:
-                if (myResult.Length > 13)
-                {
-                    myResult = scientificNotation(myResult);
-                }
             }
             else if (currentOperator == "%")
             {
                 myResult = Convert.ToString(Convert.ToDouble(firstOperand) % Convert.ToDouble(secondOperand));
+            }
 
-                // Re-formatting result to scientific notation (i.e. e+ or e-) if it is too large:
-                if (myResult.Length > 13)
-                {
-                    myResult = scientificNotation(myResult);
-                }
+            // Formatting result to scientific notation (i.e. e+ or e-) if it is too large:
+            if (myResult.Length > 13)
+            {
+                myResult = scientificNotation(myResult);
             }
 
             // Display result back to the user:
@@ -224,18 +173,11 @@ namespace Calculator
 
             // Resetting first operand for next expression:
             firstOperand = "";
+            firstOperandInExpression = "";
 
             // Resetting second operand for next expression:
             secondOperand = "";
-
-            // Resetting first operand to use in expression:
-            firstOperandInExpression = "";
-
-            // Resetting second operand to use in expression:
             secondOperandInExpression = "";
-
-            // Resetting current number in expression:
-            currentNumberInExpression = "";
 
             // Resetting current expression:
             currentExpression = "";
@@ -251,7 +193,7 @@ namespace Calculator
             myResult = "";
         }
 
-        // Function to use when +, -, ×, ÷, or % buttons are clicked:
+        // Function for when +, -, ×, ÷, or % buttons are clicked:
         public void operatorClicked(object sender, EventArgs e)
         {
             // If current number is NaN or infinity then clear all inputs and reset everything, except history:
@@ -342,8 +284,6 @@ namespace Calculator
         public void ceButtonClicked(object sender, EventArgs e)
         {
             textBox.Text = "0";
-
-            // Resetting current number:
             currentNumber = "";
             currentNumberInExpression = "";
 
@@ -370,124 +310,64 @@ namespace Calculator
             {
                 currentNumber = "";
                 currentNumberInExpression = "";
-
                 textBox.Text = "0";
             }
         }
 
-        // Function for +/- button (i.e. negate function):
-        public void plusMinusClicked(object sender, EventArgs e)
+        // Function for square, square root, inverse, and +/- (i.e. negate function):
+        public void functionClicked(object sender, EventArgs e)
         {
             if (currentNumber != "")
             {
-                // Formatting current number to use in expression:
-                currentNumberInExpression = "negate(" + currentNumber + ")";
+                // For square:
+                if (sender == this.square)
+                {
+                    // Formatting current number to use in expression:
+                    currentNumberInExpression = "(" + currentNumberInExpression + ")^2";
 
+                    currentNumber = Convert.ToString(Math.Pow(Convert.ToDouble(currentNumber), 2));
+                }
+                // For square root:
+                else if (sender == this.squareRoot)
+                {
+                    // Formatting current number to use in expression:
+                    currentNumberInExpression = "sqrt(" + currentNumberInExpression + ")";
+
+                    currentNumber = Convert.ToString(Math.Sqrt(Convert.ToDouble(currentNumber)));
+                }
+                // For inverse:
+                else if (sender == this.inverse)
+                {
+                    // Formatting current number to use in expression:
+                    currentNumberInExpression = "1/(" + currentNumberInExpression + ")";
+
+                    currentNumber = Convert.ToString(1 / (Convert.ToDouble(currentNumber)));
+                }
+                // For plus/minus:
+                else if (sender == this.plusMinus)
+                {
+                    // Formatting current number to use in expression:
+                    currentNumberInExpression = "negate(" + currentNumberInExpression + ")";
+
+                    double oppositeNumber = Convert.ToDouble(currentNumber);
+                    oppositeNumber = oppositeNumber * (-1);
+                    currentNumber = Convert.ToString(oppositeNumber);
+                }
+
+                // Displaying first operand and current number in expression:
                 if (firstOperandInExpression != "" && currentOperator != "")
                 {
-                    // Displaying first operand and current number in expression:
                     currentExpressionTextBox.Text = firstOperandInExpression + " " + currentOperator + " " + currentNumberInExpression;
                 }
                 else
                     // Displaying current number in expression:
                     currentExpressionTextBox.Text = currentNumberInExpression;
-
-                double oppositeNumber = Convert.ToDouble(currentNumber);
-
-                oppositeNumber = oppositeNumber * (-1);
-
-                currentNumber = Convert.ToString(oppositeNumber);
-
-                textBox.Text = currentNumber;
-            }
-        }
-
-        // Function for square root button:
-        public void squareRootClicked(object sender, EventArgs e)
-        {
-            if (currentNumber != "")
-            {
-                // Formatting current number to use in expression:
-                currentNumberInExpression = "sqrt(" + currentNumberInExpression + ")";
-
-                if (firstOperandInExpression != "" && currentOperator != "")
-                {
-                    // Displaying first operand and current number in expression:
-                    currentExpressionTextBox.Text = firstOperandInExpression + " " + currentOperator + " " + currentNumberInExpression;
-                }
-                else
-                    // Displaying current number in expression:
-                    currentExpressionTextBox.Text = currentNumberInExpression;
-
-                // Performing square root of current number:
-                currentNumber = Convert.ToString(Math.Sqrt(Convert.ToDouble(currentNumber)));
 
                 // Re-formatting current number to scientific notation (i.e. e+ or e-) if it is too large:
                 if (currentNumber.Length > 13)
                 {
                     currentNumber = scientificNotation(currentNumber);
                 }
-                
-                textBox.Text = currentNumber;
-            }
-        }
-
-        // Function for square button:
-        public void squareClicked(object sender, EventArgs e)
-        {
-            if (currentNumber != "")
-            {
-                // Formatting current number to use in expression:
-                currentNumberInExpression = "(" + currentNumberInExpression + ")^2";
-
-                if (firstOperandInExpression != "" && currentOperator != "")
-                {
-                    // Displaying first operand and current number in expression:
-                    currentExpressionTextBox.Text = firstOperandInExpression + " " + currentOperator + " " + currentNumberInExpression;
-                }
-                else
-                    // Displaying current number in expression:
-                    currentExpressionTextBox.Text = currentNumberInExpression;
-
-                // Performing square of current number:
-                currentNumber = Convert.ToString(Math.Pow(Convert.ToDouble(currentNumber), 2));
-
-                // Re-formatting current number to scientific notation (i.e. e+ or e-) if it is too large:
-                if (currentNumber.Length > 13)
-                {
-                    currentNumber = scientificNotation(currentNumber);
-                }
-
-                textBox.Text = currentNumber;
-            }
-        }
-
-        // Function for inverse button:
-        public void inverseClicked(object sender, EventArgs e)
-        {
-            if (currentNumber != "")
-            {
-                // Formatting current number to use in expression:
-                currentNumberInExpression = "1/(" + currentNumberInExpression + ")";
-
-                if (firstOperandInExpression != "" && currentOperator != "")
-                {
-                    // Displaying first operand and current number in expression:
-                    currentExpressionTextBox.Text = firstOperandInExpression + " " + currentOperator + " " + currentNumberInExpression;
-                }
-                else
-                    // Displaying current number in expression:
-                    currentExpressionTextBox.Text = currentNumberInExpression;
-
-                // Performing inverse of current number:
-                currentNumber = Convert.ToString(1 / (Convert.ToDouble(currentNumber)));
-
-                // Re-formatting current number to scientific notation (i.e. e+ or e-) if it is too large:
-                if (currentNumber.Length > 13)
-                {
-                    currentNumber = scientificNotation(currentNumber);
-                }
-
                 textBox.Text = currentNumber;
             }
         }

@@ -188,7 +188,7 @@ namespace Calculator
             this.squareRoot.TabIndex = 10;
             this.squareRoot.Text = "√";
             this.squareRoot.UseVisualStyleBackColor = false;
-            this.squareRoot.Click += new System.EventHandler(this.squareRootClicked);
+            this.squareRoot.Click += new System.EventHandler(this.functionClicked);
             // 
             // plus
             // 
@@ -236,7 +236,7 @@ namespace Calculator
             this.plusMinus.TabIndex = 14;
             this.plusMinus.Text = " ±";
             this.plusMinus.UseVisualStyleBackColor = false;
-            this.plusMinus.Click += new System.EventHandler(this.plusMinusClicked);
+            this.plusMinus.Click += new System.EventHandler(this.functionClicked);
             // 
             // inverse
             // 
@@ -248,7 +248,7 @@ namespace Calculator
             this.inverse.TabIndex = 15;
             this.inverse.Text = "1/χ";
             this.inverse.UseVisualStyleBackColor = false;
-            this.inverse.Click += new System.EventHandler(this.inverseClicked);
+            this.inverse.Click += new System.EventHandler(this.functionClicked);
             // 
             // dot
             // 
@@ -272,7 +272,7 @@ namespace Calculator
             this.square.TabIndex = 17;
             this.square.Text = "χ2";
             this.square.UseVisualStyleBackColor = false;
-            this.square.Click += new System.EventHandler(this.squareClicked);
+            this.square.Click += new System.EventHandler(this.functionClicked);
             // 
             // divide
             // 
