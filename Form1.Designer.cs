@@ -461,7 +461,6 @@ namespace Calculator
             this.historyPanel.ResumeLayout(false);
             this.historyPanel.PerformLayout();
             this.ResumeLayout(false);
-
         }
 
         #endregion
