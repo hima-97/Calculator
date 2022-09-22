@@ -366,7 +366,6 @@ namespace Calculator
             this.currentExpressionTextBox.Name = "currentExpressionTextBox";
             this.currentExpressionTextBox.Size = new System.Drawing.Size(269, 33);
             this.currentExpressionTextBox.TabIndex = 2;
-            this.currentExpressionTextBox.Text = "";
             this.currentExpressionTextBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // historyButton
@@ -402,7 +401,6 @@ namespace Calculator
             // 
             // historyPanel
             // 
-            //this.historyPanel.AutoScroll = true;
             this.historyPanel.Controls.Add(this.historyTextBox);
             this.historyPanel.Location = new System.Drawing.Point(1, 54);
             this.historyPanel.Name = "historyPanel";
@@ -412,18 +410,16 @@ namespace Calculator
             // 
             // historyTextBox
             // 
-            this.historyTextBox.BackColor = System.Drawing.SystemColors.ControlText;
-            this.historyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.historyTextBox.Enabled = false;
-            this.historyTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.historyTextBox.ForeColor = System.Drawing.SystemColors.ButtonFace;
             this.historyTextBox.Location = new System.Drawing.Point(0, 0);
+            this.historyTextBox.BackColor = System.Drawing.SystemColors.ControlText;
+            this.historyTextBox.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.historyTextBox.ReadOnly = true;
+            this.historyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.historyTextBox.Multiline = true;
             this.historyTextBox.Name = "historyTextBox";
             this.historyTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.historyTextBox.Size = new System.Drawing.Size(320, 406);
             this.historyTextBox.TabIndex = 0;
-            this.historyTextBox.Visible = false;
             // 
             // Calculator
             // 
@@ -498,7 +494,7 @@ namespace Calculator
         private TextBox textBox;
         private Button historyButton;
         private Panel historyPanel;
-        private TextBox historyTextBox;
         private TextBox currentExpressionTextBox;
+        private TextBox historyTextBox;
     }
 }
