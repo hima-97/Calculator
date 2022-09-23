@@ -413,6 +413,7 @@ namespace Calculator
             this.historyTextBox.Location = new System.Drawing.Point(0, 0);
             this.historyTextBox.BackColor = System.Drawing.SystemColors.ControlText;
             this.historyTextBox.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.historyTextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.historyTextBox.ReadOnly = true;
             this.historyTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.historyTextBox.Multiline = true;
