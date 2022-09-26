@@ -1,6 +1,6 @@
 # Project Description
 
-This project consists of a windows forms application used to implement a standard math calculator with a GUI. 
+This project consists of a windows forms application used to implement a standard math calculator with a GUI.  <br /> 
 This is a desktop application that runs on a Windows system.
 
 # Functionality
