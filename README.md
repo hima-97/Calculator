@@ -27,12 +27,7 @@ Additionally, the user can also perform the following operations on a single ope
 
 # Running and Testing the Project
 
-You can run and test the full project by running the following command:
+You can run and test the full project following these steps:
 
-- `if ($?) { g++ TST.cpp main.cpp -o TST } ; if ($?) { .\TST "insert argv[1] string argument here" }`
-
-- Note: replace `"insert argv[1] string argument here"` with a string argument from the "Test cases.txt" file
-        or you can also test your own string argument following the same format
-
-- Note: the `{ g++ TST.cpp main.cpp -o TST }` command compiles the TST.cpp and main.cpp files,
-        producing a TST executable file
+- Clone the repository to your local machine
+- Follow the path `Calculator/bin/Debug/net6.0-windows` to locate and play the `Calculator.exe` file
