@@ -1,7 +1,7 @@
 # Project Description
 
-This project consists of a windows forms application used to implement a standard math calculator with a GUI.  <br /> 
-This is a desktop application that runs on a Windows system.
+This project consists of building a standard math calculator with a GUI.  <br /> 
+This desktop application is implemented using Windows Forms in the Microsoft .Net Framework.
 
 # Functionality
 
@@ -24,6 +24,13 @@ Additionally, the user can also perform the following operations on a single ope
 -	Find the inverse of the operand
 -	Negate the operand
 -	Clear operand (i.e. CE button)
+
+# Tools and Concepts
+- Languages: C#
+- Windows form application
+- Visual Studio
+- String manipulation
+- Object-Oriented Programming (OOP)
 
 # Running and Testing the Project
 
