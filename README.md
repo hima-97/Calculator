@@ -1,7 +1,7 @@
 # Project Description
 
 This project consists of building a standard math calculator with a graphical user interface (GUI).  <br /> 
-This desktop application is implemented using Windows Forms in the Microsoft .Net Framework.
+This is a desktop application implemented using Windows Forms in the Microsoft .Net Framework.
 
 # Functionality
 
