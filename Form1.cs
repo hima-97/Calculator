@@ -1,3 +1,29 @@
+/*
+ * This file contains the implementation of a standard math calculator with a graphical user interface (GUI) using Windows Forms in the Microsoft .Net Framework.
+ * 
+ * Functionality:
+ * - Supports basic arithmetic operations: addition, subtraction, multiplication, division, and modulo.
+ * - Includes advanced functions: square, square root, inverse, and negation of a number.
+ * - Provides functionality to clear the current expression (C button) and the current entry (CE button).
+ * - Displays the history of all operations performed.
+ * 
+ * Key Features:
+ * - Number entry and decimal point handling.
+ * - Operator handling for building and evaluating expressions.
+ * - Special functions for advanced mathematical operations.
+ * - History management and display functionality.
+ * - User input handling through button clicks and keyboard input.
+ * 
+ * Tools and Concepts:
+ * - Languages: C#
+ * - Windows Forms application
+ * - Visual Studio
+ * - String manipulation
+ * - Object-Oriented Programming (OOP)
+ * 
+ */
+
+
 using System;
 using System.Data;
 using System.Globalization;
@@ -140,11 +166,11 @@ namespace Calculator
 
                 myResult = new DataTable().Compute(currentExpression, null).ToString();
             }
-            else if (currentOperator == "×" || currentOperator == "*")
+            else if (currentOperator == "ï¿½" || currentOperator == "*")
             {
                 myResult = Convert.ToString(Convert.ToDouble(firstOperand) * Convert.ToDouble(secondOperand));
             }
-            else if (currentOperator == "÷" || currentOperator == "/")
+            else if (currentOperator == "ï¿½" || currentOperator == "/")
             {
                 myResult = Convert.ToString(Convert.ToDouble(firstOperand) / Convert.ToDouble(secondOperand));
             }
@@ -193,7 +219,7 @@ namespace Calculator
             myResult = "";
         }
 
-        // Function for when +, -, ×, ÷, or % buttons are clicked:
+        // Function for when +, -, ï¿½, ï¿½, or % buttons are clicked:
         public void operatorClicked(object sender, EventArgs e)
         {
             // If current number is NaN or infinity then clear all inputs and reset everything, except history:

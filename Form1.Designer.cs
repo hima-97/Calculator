@@ -1,4 +1,25 @@
-﻿using System.Security.Policy;
+﻿/*
+ * The `Form1.Designer.cs` file is an auto-generated file by the Visual Studio designer that contains the code for initializing and setting up the graphical user interface (GUI) components of the Calculator application.
+ * This file defines and initializes the layout, properties, and event handlers of the buttons, text boxes, panels, and other UI elements that make up the calculator's interface.
+ * 
+ * Differences between `Form1.Designer.cs` and `Form1.cs`:
+ * 1. `Form1.Designer.cs`:
+ *    - Contains the GUI design and component initialization code.
+ *    - Automatically generated and updated by the Visual Studio designer.
+ *    - Defines the layout, appearance, and event handler assignments for UI components.
+ *    - Should not be manually edited as changes might be overwritten by the designer.
+ *
+ * 2. `Form1.cs`:
+ *    - Contains the logic and functionality of the calculator application.
+ *    - Implements the event handlers defined in `Form1.Designer.cs` for handling user interactions.
+ *    - Includes methods for performing calculations, managing operands, handling operator clicks, and displaying results.
+ *    - Should be manually edited to update the functionality and behavior of the application.
+ *
+ * In summary, `Form1.Designer.cs` sets up the GUI, while `Form1.cs` implements the functionality behind the GUI.
+ */
+
+
+using System.Security.Policy;
 
 namespace Calculator
 {
